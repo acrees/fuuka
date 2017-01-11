@@ -1,6 +1,8 @@
 import Chai from 'chai'
 import Store from '../src'
+import dispatchedPlugin from '../src/plugin'
 
+Chai.use(dispatchedPlugin);
 Chai.should();
 
 describe('Store', () => {
@@ -29,5 +31,24 @@ describe('Store', () => {
     sut.dispatch.call(undefined, action);
 
     sut.getActions()[0].should.equal(action);
+  });
+});
+
+describe('Plugin', () => {
+  it('should pass if matching action dispatched', () => {
+    var sut = new Store({});
+    
+    sut.dispatch({ type: 'test', data: 1 });
+
+    sut.should.have.dispatched({ type: 'test', data: 1 });
+  });
+  it('should fail if no matching action dispatched', () => {
+    var sut = new Store({});
+    
+    sut.dispatch({ type: 'test', data: 1 });
+
+    Chai.expect(function () {
+      sut.should.have.dispatched({ type: 'test', data: 2 });
+    }).to.throw("expected MockStore to have dispatched { type: 'test', data: 2 }");
   });
 });
