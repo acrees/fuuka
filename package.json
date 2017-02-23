@@ -2,11 +2,11 @@
   "name": "fuuka",
   "version": "0.1.1",
   "description": "A mock store for testing redux applications",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register test/*.js",
     "preversion": "npm test",
-    "version": "babel src --out-dir lib",
+    "version": "babel src --out-dir lib"
   },
   "keywords": [
     "testing",
