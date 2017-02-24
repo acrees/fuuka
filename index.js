@@ -1,4 +1,4 @@
 module.exports = {
-  Store: require('./lib/store'),
-  Plugin: require('./lib/plugin')
+  Store: require('./lib/store').default,
+  Plugin: require('./lib/plugin').default
 }
