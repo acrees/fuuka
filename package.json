@@ -1,6 +1,6 @@
 {
   "name": "fuuka",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A mock store for testing redux applications",
   "main": "index.js",
   "scripts": {
