@@ -51,4 +51,20 @@ describe('Plugin', () => {
       sut.should.have.dispatched({ type: 'test', data: 2 });
     }).to.throw("expected MockStore to have dispatched { type: 'test', data: 2 }");
   });
+  it('takes a predicate function too', () => {
+    var sut = new Store({});
+
+    sut.dispatch({ type: 'test', data: 1 });
+
+    sut.should.have.dispatched(a => a.type == 'test');
+  });
+  it('fails properly for predicates', () => {
+    var sut = new Store({});
+
+    sut.dispatch({ type: 'test', data: 1 });
+
+    Chai.expect(function () {
+      sut.should.have.dispatched(a => a.type == 'testing');
+    }).to.throw("expected MockStore to have dispatched [Function]");
+  })
 });
