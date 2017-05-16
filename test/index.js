@@ -1,4 +1,5 @@
 import Chai from 'chai'
+import td from 'testdouble'
 import Store from '../src/store'
 import dispatchedPlugin from '../src/plugin'
 
@@ -31,6 +32,20 @@ describe('Store', () => {
     sut.dispatch.call(undefined, action);
 
     sut.getActions()[0].should.equal(action);
+  });
+  it('executes functions that are passed to it', () => {
+    var state = { test: 1 };
+    var sut = new Store(state);
+
+    var action = td.function('action');
+    td.when(action(state))
+      .thenReturn({ type: 'test', data: 'string' });
+
+    sut.dispatch(function (dispatch, getState) {
+      dispatch(action(getState()));
+    });
+
+    sut.should.have.dispatched({ type: 'test', data: 'string' });
   });
 });
 
@@ -66,5 +81,5 @@ describe('Plugin', () => {
     Chai.expect(function () {
       sut.should.have.dispatched(a => a.type == 'testing');
     }).to.throw("expected MockStore to have dispatched [Function]");
-  })
+  });
 });
