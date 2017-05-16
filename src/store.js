@@ -16,6 +16,10 @@ export default class Store {
   }
 
   _dispatch(action) {
-    this.actions.push(action);
+    if (typeof(action) === 'function')  {
+      action(this.dispatch, function(){ return this.state });
+    } else {
+      this.actions.push(action);
+    }
   }
 }
