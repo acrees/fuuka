@@ -3,11 +3,14 @@ export default class Store {
     this.state = state;
     this.actions = [];
     this.dispatch = this._dispatch.bind(this);
+    this.getState = this._getState.bind(this);
   }
 
-  subscribe() {}
+  subscribe() {
+    return function unsubscribe() {};
+  }
 
-  getState() {
+  _getState() {
     return this.state;
   }
 
